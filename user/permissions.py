@@ -1,7 +1,5 @@
 from rest_framework.permissions import SAFE_METHODS, BasePermission
 
-from cinema.views import OrderViewSet
-
 
 class IsAdminOrIfAuthenticatedReadOnly(BasePermission):
     def has_permission(self, request, view):
@@ -13,7 +11,7 @@ class IsAdminOrIfAuthenticatedReadOnly(BasePermission):
 
         if (
                 request.method == "POST"
-                and view.__class__ == OrderViewSet
+                and getattr(view, "basename", "") == "order"
         ):
             return True
 
