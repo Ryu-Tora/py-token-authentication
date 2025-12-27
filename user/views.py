@@ -4,7 +4,6 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 
-from user.permissions import IsAdminOrIfAuthenticatedReadOnly
 from user.serializers import UserSerializer
 
 
@@ -19,7 +18,7 @@ class CreateTokenView(ObtainAuthToken):
 class ManageUserView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, IsAdminOrIfAuthenticatedReadOnly,)
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
